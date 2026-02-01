@@ -95,17 +95,30 @@ class ChordTransposer:
             words = line.split()
             
             if cls._is_chord_line(words, use_latin):
-                # Transponer cada palabra (acorde)
-                transposed_words = [
-                    cls.transpose_chord(word, semitones, use_latin) 
-                    for word in words
-                ]
-                result.append(' '.join(transposed_words))
+                # Transponer preservando el espaciado original
+                transposed_line = cls._transpose_line_preserve_spacing(line, semitones, use_latin)
+                result.append(transposed_line)
             else:
                 # Es una línea de letra, mantenerla igual
                 result.append(line)
         
         return '\n'.join(result)
+    
+    @classmethod
+    def _transpose_line_preserve_spacing(cls, line: str, semitones: int, use_latin: bool) -> str:
+        """Transpone acordes en una línea preservando el espaciado original"""
+        if use_latin:
+            # Patrón para acordes latinos
+            pattern = r'\b(Do|Re|Mi|Fa|Sol|La|Si)(#|b)?(m|M|maj|min|dim|aug|sus|add|\d)*\b'
+        else:
+            # Patrón para acordes ingleses
+            pattern = r'\b[A-G](#|b)?(m|M|maj|min|dim|aug|sus|add|\d)*\b'
+        
+        def replace_chord(match):
+            chord = match.group(0)
+            return cls.transpose_chord(chord, semitones, use_latin)
+        
+        return re.sub(pattern, replace_chord, line, flags=re.IGNORECASE)
     
     @classmethod
     def _is_chord_line(cls, words: list, use_latin: bool = False) -> bool:
@@ -114,14 +127,23 @@ class ChordTransposer:
             return False
         
         if use_latin:
-            chord_pattern = r'^(Do|Re|Mi|Fa|Sol|La|Si)(#|b)?(m|M|maj|min|dim|aug|sus|add|\d)*'
+            # Patrón más estricto para notación latina
+            chord_pattern = r'^(Do|Re|Mi|Fa|Sol|La|Si)(#|b)?(m|M|maj|min|dim|aug|sus|add|\d)*$'
         else:
-            chord_pattern = r'^[A-G](#|b)?(m|M|maj|min|dim|aug|sus|add|\d)*'
+            # Patrón más estricto para notación inglesa - solo letras A-G seguidas de modificadores
+            chord_pattern = r'^[A-G](#|b)?(m|M|maj|min|dim|aug|sus|add|\d)*$'
         
-        # Si más del 50% de las palabras parecen acordes, es una línea de acordes
+        # Contar cuántas palabras coinciden con el patrón de acorde
         chord_count = sum(1 for word in words if re.match(chord_pattern, word, re.IGNORECASE))
         
-        return chord_count / len(words) >= 0.5
+        # Una línea es de acordes si:
+        # 1. Todas las palabras son acordes (100%), o
+        # 2. Al menos 70% son acordes Y hay al menos 2 acordes
+        if len(words) == chord_count:
+            return True
+        
+        chord_ratio = chord_count / len(words) if len(words) > 0 else 0
+        return chord_ratio >= 0.7 and chord_count >= 2
     
     @classmethod
     def get_key_name(cls, semitones_from_c: int, use_latin: bool = False) -> str:

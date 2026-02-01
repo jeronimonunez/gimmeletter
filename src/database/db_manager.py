@@ -34,9 +34,18 @@ class DatabaseManager:
                 original_key TEXT,
                 lyrics_with_chords TEXT,
                 bpm INTEGER,
+                default_scroll_speed INTEGER DEFAULT 50,
                 created_date TEXT
             )
         """)
+        
+        # Migración: Agregar columna default_scroll_speed si no existe
+        try:
+            cursor.execute("ALTER TABLE songs ADD COLUMN default_scroll_speed INTEGER DEFAULT 50")
+            self.connection.commit()
+        except sqlite3.OperationalError:
+            # La columna ya existe, ignorar
+            pass
         
         # Tabla de sets
         cursor.execute("""
@@ -69,14 +78,15 @@ class DatabaseManager:
         """Agrega una canción y retorna su ID"""
         cursor = self.connection.cursor()
         cursor.execute("""
-            INSERT INTO songs (title, artist, original_key, lyrics_with_chords, bpm, created_date)
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO songs (title, artist, original_key, lyrics_with_chords, bpm, default_scroll_speed, created_date)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
         """, (
             song.title,
             song.artist,
             song.original_key,
             song.lyrics_with_chords,
             song.bpm,
+            song.default_scroll_speed,
             datetime.now().isoformat()
         ))
         self.connection.commit()
@@ -89,6 +99,12 @@ class DatabaseManager:
         row = cursor.fetchone()
         
         if row:
+            # Manejar columnas que pueden no existir en bases de datos antiguas
+            try:
+                default_scroll_speed = row['default_scroll_speed']
+            except (KeyError, IndexError):
+                default_scroll_speed = 50
+            
             return Song(
                 id=row['id'],
                 title=row['title'],
@@ -96,6 +112,7 @@ class DatabaseManager:
                 original_key=row['original_key'],
                 lyrics_with_chords=row['lyrics_with_chords'],
                 bpm=row['bpm'],
+                default_scroll_speed=default_scroll_speed,
                 created_date=row['created_date']
             )
         return None
@@ -106,15 +123,26 @@ class DatabaseManager:
         cursor.execute("SELECT * FROM songs ORDER BY title")
         rows = cursor.fetchall()
         
-        return [Song(
-            id=row['id'],
-            title=row['title'],
-            artist=row['artist'],
-            original_key=row['original_key'],
-            lyrics_with_chords=row['lyrics_with_chords'],
-            bpm=row['bpm'],
-            created_date=row['created_date']
-        ) for row in rows]
+        songs = []
+        for row in rows:
+            # Manejar columnas que pueden no existir en bases de datos antiguas
+            try:
+                default_scroll_speed = row['default_scroll_speed']
+            except (KeyError, IndexError):
+                default_scroll_speed = 50
+            
+            songs.append(Song(
+                id=row['id'],
+                title=row['title'],
+                artist=row['artist'],
+                original_key=row['original_key'],
+                lyrics_with_chords=row['lyrics_with_chords'],
+                bpm=row['bpm'],
+                default_scroll_speed=default_scroll_speed,
+                created_date=row['created_date']
+            ))
+        
+        return songs
     
     def update_song(self, song: Song):
         """Actualiza una canción existente"""
@@ -122,7 +150,7 @@ class DatabaseManager:
         cursor.execute("""
             UPDATE songs
             SET title = ?, artist = ?, original_key = ?, 
-                lyrics_with_chords = ?, bpm = ?
+                lyrics_with_chords = ?, bpm = ?, default_scroll_speed = ?
             WHERE id = ?
         """, (
             song.title,
@@ -130,6 +158,7 @@ class DatabaseManager:
             song.original_key,
             song.lyrics_with_chords,
             song.bpm,
+            song.default_scroll_speed,
             song.id
         ))
         self.connection.commit()
@@ -163,6 +192,20 @@ class DatabaseManager:
             name=row['name'],
             created_date=row['created_date']
         ) for row in rows]
+    
+    def get_set(self, set_id: int) -> Set:
+        """Obtiene un set por su ID"""
+        cursor = self.connection.cursor()
+        cursor.execute("SELECT * FROM sets WHERE id = ?", (set_id,))
+        row = cursor.fetchone()
+        
+        if row:
+            return Set(
+                id=row['id'],
+                name=row['name'],
+                created_date=row['created_date']
+            )
+        return None
     
     def delete_set(self, set_id: int):
         """Elimina un set"""

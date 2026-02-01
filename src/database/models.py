@@ -15,6 +15,7 @@ class Song:
     original_key: str = ""
     lyrics_with_chords: str = ""
     bpm: Optional[int] = None
+    default_scroll_speed: int = 50  # Velocidad por defecto en px/seg
     created_date: Optional[str] = None
     
     def __str__(self):
