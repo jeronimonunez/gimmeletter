@@ -278,6 +278,17 @@ body {
     gap: 1rem;
 }
 
+.download-buttons .btn-secondary {
+    background-color: white;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.download-buttons .btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
 /* Installation Guide */
 .installation-guide {
     background: white;
