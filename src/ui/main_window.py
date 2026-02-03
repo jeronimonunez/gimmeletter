@@ -24,6 +24,7 @@ from .player_window import PlayerWindow
 from .song_preview import SongPreviewDialog
 from .song_list_delegate import SongListDelegate
 from .import_export_handler import ImportExportHandler
+from .settings_dialog import SettingsDialog
 
 
 class MainWindow(QMainWindow):
@@ -207,6 +208,13 @@ class MainWindow(QMainWindow):
         
         # Menú Ver
         view_menu = menubar.addMenu("Ver")
+        
+        # Configuración
+        settings_action = QAction("⚙️ Configuración...", self)
+        settings_action.triggered.connect(self.open_settings)
+        view_menu.addAction(settings_action)
+        
+        view_menu.addSeparator()
         
         # Toggle tema
         theme_action = QAction("Cambiar Tema (Oscuro/Claro)", self)
@@ -817,7 +825,10 @@ class MainWindow(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Error al importar: {str(e)}")
     
-
+    def open_settings(self):
+        """Abre el diálogo de configuración"""
+        dialog = SettingsDialog(self)
+        dialog.exec()
     
     def show_about(self):
         """Muestra el diálogo Acerca de"""

@@ -57,6 +57,6 @@ coll = COLLECT(
 app = BUNDLE(
     coll,
     name='GimmeLetter.app',
-    icon=None,
+    icon='gimmeletter.icns',
     bundle_identifier='com.gimmeletter.app',
 )

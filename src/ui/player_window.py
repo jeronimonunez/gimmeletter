@@ -425,140 +425,144 @@ class PlayerWindow(QMainWindow):
         self.update_font_size()
     
     def apply_theme(self):
-        """Aplica el tema oscuro o claro"""
+        """Aplica el tema oscuro o claro con colores personalizados"""
         dark_mode = self.settings.get_dark_mode()
         
+        # Obtener colores personalizados
+        bg_color = self.settings.get_player_background_color()
+        text_color = self.settings.get_player_text_color()
+        
         if dark_mode:
-            self.setStyleSheet("""
-                QMainWindow {
+            self.setStyleSheet(f"""
+                QMainWindow {{
                     background-color: #1e1e1e;
                     color: #d4d4d4;
-                }
-                QTextEdit {
-                    background-color: #1e1e1e;
-                    color: #d4d4d4;
+                }}
+                QTextEdit {{
+                    background-color: {bg_color};
+                    color: {text_color};
                     border: none;
                     padding: 20px;
-                }
-                QListWidget {
+                }}
+                QListWidget {{
                     background-color: #252526;
                     color: #d4d4d4;
                     border: none;
                     padding: 8px;
                     outline: none;
-                }
-                QListWidget::item {
+                }}
+                QListWidget::item {{
                     padding: 8px;
                     border-radius: 4px;
                     margin: 2px;
-                }
-                QListWidget::item:selected {
+                }}
+                QListWidget::item:selected {{
                     background-color: #0e639c;
                     color: white;
-                }
-                QListWidget::item:hover {
+                }}
+                QListWidget::item:hover {{
                     background-color: #2a2d2e;
-                }
-                QPushButton {
+                }}
+                QPushButton {{
                     background-color: #0e639c;
                     color: white;
                     border: none;
                     padding: 8px 16px;
                     border-radius: 4px;
                     font-size: 13px;
-                }
-                QPushButton:hover {
+                }}
+                QPushButton:hover {{
                     background-color: #1177bb;
-                }
-                QPushButton:pressed {
+                }}
+                QPushButton:pressed {{
                     background-color: #005a9e;
-                }
-                QLabel {
+                }}
+                QLabel {{
                     color: #d4d4d4;
                     padding: 8px;
-                }
-                QSlider::groove:horizontal {
+                }}
+                QSlider::groove:horizontal {{
                     border: 1px solid #3e3e42;
                     height: 8px;
                     background: #2d2d30;
                     border-radius: 4px;
-                }
-                QSlider::handle:horizontal {
+                }}
+                QSlider::handle:horizontal {{
                     background: #0e639c;
                     border: 1px solid #0e639c;
                     width: 18px;
                     margin: -5px 0;
                     border-radius: 9px;
-                }
-                QSlider::handle:horizontal:hover {
+                }}
+                QSlider::handle:horizontal:hover {{
                     background: #1177bb;
-                }
-                QToolBar {
+                }}
+                QToolBar {{
                     background-color: #2d2d30;
                     border: none;
                     padding: 4px;
                     spacing: 8px;
-                }
-                QToolBar QToolButton {
+                }}
+                QToolBar QToolButton {{
                     color: #d4d4d4;
                     padding: 6px 12px;
                     border-radius: 4px;
-                }
-                QToolBar QToolButton:hover {
+                }}
+                QToolBar QToolButton:hover {{
                     background-color: #094771;
-                }
+                }}
             """)
         else:
-            self.setStyleSheet("""
-                QMainWindow {
+            self.setStyleSheet(f"""
+                QMainWindow {{
                     background-color: #ffffff;
                     color: #000000;
-                }
-                QTextEdit {
-                    background-color: #ffffff;
-                    color: #000000;
+                }}
+                QTextEdit {{
+                    background-color: {bg_color};
+                    color: {text_color};
                     border: none;
                     padding: 20px;
-                }
-                QListWidget {
+                }}
+                QListWidget {{
                     background-color: #f3f3f3;
                     color: #000000;
                     border: 1px solid #e0e0e0;
                     padding: 8px;
                     outline: none;
-                }
-                QListWidget::item {
+                }}
+                QListWidget::item {{
                     padding: 8px;
                     border-radius: 4px;
                     margin: 2px;
-                }
-                QListWidget::item:selected {
+                }}
+                QListWidget::item:selected {{
                     background-color: #007acc;
                     color: white;
-                }
-                QListWidget::item:hover {
+                }}
+                QListWidget::item:hover {{
                     background-color: #e8e8e8;
-                }
-                QPushButton {
+                }}
+                QPushButton {{
                     background-color: #007acc;
                     color: white;
                     border: none;
                     padding: 8px 16px;
                     border-radius: 4px;
                     font-size: 13px;
-                }
-                QPushButton:hover {
+                }}
+                QPushButton:hover {{
                     background-color: #1177bb;
-                }
-                QLabel {
+                }}
+                QLabel {{
                     color: #000000;
                     padding: 8px;
-                }
-                QToolBar {
+                }}
+                QToolBar {{
                     background-color: #f0f0f0;
                     border: none;
                     padding: 4px;
-                }
+                }}
             """)
 
     

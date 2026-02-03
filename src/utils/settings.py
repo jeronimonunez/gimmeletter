@@ -46,3 +46,20 @@ class Settings:
     def set_window_geometry(self, geometry: bytes):
         """Guarda la geometría de la ventana"""
         self.settings.setValue("window/geometry", geometry)
+    
+    # COLORES DEL REPRODUCTOR
+    def get_player_background_color(self) -> str:
+        """Obtiene el color de fondo del reproductor"""
+        return self.settings.value("player/background_color", "#1e1e1e", type=str)
+    
+    def set_player_background_color(self, color: str):
+        """Establece el color de fondo del reproductor"""
+        self.settings.setValue("player/background_color", color)
+    
+    def get_player_text_color(self) -> str:
+        """Obtiene el color de texto del reproductor"""
+        return self.settings.value("player/text_color", "#ffffff", type=str)
+    
+    def set_player_text_color(self, color: str):
+        """Establece el color de texto del reproductor"""
+        self.settings.setValue("player/text_color", color)
