@@ -398,6 +398,41 @@ body {
     opacity: 0.9;
 }
 
+/* Support Section */
+.support {
+    padding: 5rem 0;
+    background-color: #fff8e6;
+    text-align: center;
+}
+
+.support h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.support p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #666;
+}
+
+.btn-cafecito {
+    display: inline-block;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-cafecito img {
+    height: 60px;
+    width: auto;
+    border-radius: 8px;
+}
+
+.btn-cafecito:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
 /* Footer */
 footer {
     background-color: var(--dark-bg);
