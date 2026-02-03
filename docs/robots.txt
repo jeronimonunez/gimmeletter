@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jeronimonunez.github.io/gimmeletter/sitemap.xml

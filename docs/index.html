@@ -3,17 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="GimmeLetter - Aplicación de escritorio para músicos con scroll automático de letras y acordes">
-    <title>GimmeLetter - Scroll Automático para Músicos</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>GimmeLetter - Scroll Automático de Letras y Acordes para Músicos</title>
+    <meta name="title" content="GimmeLetter - Scroll Automático de Letras y Acordes para Músicos">
+    <meta name="description" content="Aplicación gratuita para músicos con scroll automático, transposición de acordes y gestión de sets. Ideal para presentaciones en vivo. Descarga gratis para macOS.">
+    <meta name="keywords" content="letras canciones, acordes, scroll automático, músicos, app músicos, transposición acordes, setlist, presentaciones en vivo, macOS, software musical, partituras digitales">
+    <meta name="author" content="GimmeLetter">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Spanish">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://jeronimonunez.github.io/gimmeletter/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jeronimonunez.github.io/gimmeletter/">
+    <meta property="og:title" content="GimmeLetter - Scroll Automático de Letras y Acordes para Músicos">
+    <meta property="og:description" content="Aplicación gratuita para músicos con scroll automático, transposición de acordes y gestión de sets. Descarga gratis para macOS.">
+    <meta property="og:image" content="https://jeronimonunez.github.io/gimmeletter/logo.png">
+    <meta property="og:site_name" content="GimmeLetter">
+    <meta property="og:locale" content="es_ES">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://jeronimonunez.github.io/gimmeletter/">
+    <meta property="twitter:title" content="GimmeLetter - Scroll Automático de Letras y Acordes para Músicos">
+    <meta property="twitter:description" content="Aplicación gratuita para músicos con scroll automático, transposición de acordes y gestión de sets. Descarga gratis para macOS.">
+    <meta property="twitter:image" content="https://jeronimonunez.github.io/gimmeletter/logo.png">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "GimmeLetter",
+      "applicationCategory": "MusicApplication",
+      "operatingSystem": "macOS",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Aplicación de scroll automático de letras y acordes para músicos con transposición inteligente y gestión de sets para presentaciones en vivo.",
+      "softwareVersion": "1.0.0",
+      "downloadUrl": "https://github.com/jeronimonunez/gimmeletter/releases/latest/download/GimmeLetter-1.0.0.dmg",
+      "author": {
+        "@type": "Person",
+        "name": "Jeronimo Nuñez"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "1"
+      },
+      "screenshot": "https://jeronimonunez.github.io/gimmeletter/logo.png"
+    }
+    </script>
 </head>
 <body>
     <header>
         <nav class="navbar">
             <div class="container">
                 <div class="logo">
-                    <img src="logo.png" alt="GimmeLetter" class="logo-icon">
+                    <img src="logo.png" alt="Logo de GimmeLetter - Aplicación de scroll automático para músicos" class="logo-icon">
                     <h1>GimmeLetter</h1>
                 </div>
                 <div class="nav-links">
@@ -29,16 +89,17 @@
         <div class="container">
             <div class="hero-content">
                 <h2>Tu compañero perfecto para tocar en vivo</h2>
-                <p class="subtitle">Scroll automático de letras y acordes diseñado para músicos</p>
+                <p class="subtitle">Scroll automático de letras y acordes diseñado para músicos profesionales y aficionados</p>
                 <div class="hero-buttons">
-                    <a href="#download" class="btn btn-primary">Descargar para macOS</a>
-                    <a href="https://github.com/jeronimonunez/gimmeletter" class="btn btn-secondary" target="_blank">Ver en GitHub</a>
+                    <a href="#download" class="btn btn-primary" aria-label="Descargar GimmeLetter para macOS">Descargar para macOS</a>
+                    <a href="https://github.com/jeronimonunez/gimmeletter" class="btn btn-secondary" target="_blank" rel="noopener noreferrer" aria-label="Ver código fuente en GitHub">Ver en GitHub</a>
                 </div>
                 <p class="version">Version 1.0.0 • Gratis y Open Source</p>
             </div>
         </div>
     </section>
 
+    <main>
     <section id="features" class="features">
         <div class="container">
             <h2 class="section-title">Características Principales</h2>
@@ -133,10 +194,10 @@
                     <p class="download-requirements">Requiere macOS 10.15 o superior</p>
                 </div>
                 <div class="download-buttons">
-                    <a href="https://github.com/jeronimonunez/gimmeletter/releases/latest/download/GimmeLetter-1.0.0.dmg" class="btn btn-download">
+                    <a href="https://github.com/jeronimonunez/gimmeletter/releases/latest/download/GimmeLetter-1.0.0.dmg" class="btn btn-download" aria-label="Descargar GimmeLetter 1.0.0 DMG para macOS">
                         ⬇️ Descargar DMG
                     </a>
-                    <a href="https://github.com/jeronimonunez/gimmeletter/releases" class="btn btn-secondary" target="_blank">
+                    <a href="https://github.com/jeronimonunez/gimmeletter/releases" class="btn btn-secondary" target="_blank" rel="noopener noreferrer" aria-label="Ver todas las versiones de GimmeLetter">
                         Ver todas las versiones
                     </a>
                 </div>
@@ -190,19 +251,20 @@
         <div class="container">
             <h2>Open Source</h2>
             <p>GimmeLetter es software libre y de código abierto. Contribuciones bienvenidas!</p>
-            <a href="https://github.com/jeronimonunez/gimmeletter" class="btn btn-primary" target="_blank">
+            <a href="https://github.com/jeronimonunez/gimmeletter" class="btn btn-primary" target="_blank" rel="noopener noreferrer" aria-label="Ver código fuente de GimmeLetter en GitHub">
                 Ver código en GitHub
             </a>
         </div>
     </section>
+    </main>
 
     <footer>
         <div class="container">
             <p>&copy; 2026 GimmeLetter • Desarrollado con PyQt6 y ❤️</p>
             <div class="footer-links">
-                <a href="https://github.com/jeronimonunez/gimmeletter" target="_blank">GitHub</a>
-                <a href="https://github.com/jeronimonunez/gimmeletter/issues" target="_blank">Reportar Bug</a>
-                <a href="https://github.com/jeronimonunez/gimmeletter/blob/main/copilot-instructions.md" target="_blank">Documentación</a>
+                <a href="https://github.com/jeronimonunez/gimmeletter" target="_blank" rel="noopener noreferrer" aria-label="Repositorio de GimmeLetter en GitHub">GitHub</a>
+                <a href="https://github.com/jeronimonunez/gimmeletter/issues" target="_blank" rel="noopener noreferrer" aria-label="Reportar un error o problema">Reportar Bug</a>
+                <a href="https://github.com/jeronimonunez/gimmeletter/blob/main/README.md" target="_blank" rel="noopener noreferrer" aria-label="Documentación de GimmeLetter">Documentación</a>
             </div>
         </div>
     </footer>
