@@ -13,7 +13,11 @@ from .models import Song, Set, SetSong
 class DatabaseManager:
     """Gestiona todas las operaciones de base de datos"""
     
-    def __init__(self, db_path: str = "gimmeletter.db"):
+    def __init__(self, db_path: str = None):
+        import os
+        # Siempre usar la base de datos en el home del usuario
+        if db_path is None:
+            db_path = os.path.join(os.path.expanduser("~"), "gimmeletter.db")
         self.db_path = db_path
         self.connection: Optional[sqlite3.Connection] = None
         self.init_database()
@@ -22,9 +26,7 @@ class DatabaseManager:
         """Inicializa la base de datos y crea las tablas si no existen"""
         self.connection = sqlite3.connect(self.db_path)
         self.connection.row_factory = sqlite3.Row
-        
         cursor = self.connection.cursor()
-        
         # Tabla de canciones
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS songs (
@@ -38,15 +40,12 @@ class DatabaseManager:
                 created_date TEXT
             )
         """)
-        
         # Migración: Agregar columna default_scroll_speed si no existe
         try:
             cursor.execute("ALTER TABLE songs ADD COLUMN default_scroll_speed INTEGER DEFAULT 50")
             self.connection.commit()
         except sqlite3.OperationalError:
-            # La columna ya existe, ignorar
             pass
-        
         # Tabla de sets
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS sets (
@@ -55,7 +54,6 @@ class DatabaseManager:
                 created_date TEXT
             )
         """)
-        
         # Tabla de relación set-canción
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS set_songs (
@@ -69,8 +67,21 @@ class DatabaseManager:
                 FOREIGN KEY (song_id) REFERENCES songs (id) ON DELETE CASCADE
             )
         """)
-        
         self.connection.commit()
+        # Si no hay canciones, agregar una por defecto
+        cursor.execute("SELECT COUNT(*) FROM songs")
+        count = cursor.fetchone()[0]
+        if count == 0:
+            from .models import Song
+            default_song = Song(
+                title="Ejemplo: Stand By Me",
+                artist="Ben E. King",
+                original_key="C",
+                lyrics_with_chords="C         Am         F         G\nWhen the night has come...",
+                bpm=120,
+                default_scroll_speed=50
+            )
+            self.add_song(default_song)
     
     # OPERACIONES DE CANCIONES
     
